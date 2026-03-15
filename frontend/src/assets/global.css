@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+:root {
+  --primary: #00A99D;
+  --dark-blue: #002D5E;
+  --gray-text: #94a3b8;
+  --light-border: #f1f5f9;
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh; 
+  background: var(--dark-blue);
+  overflow: hidden;
+}
+
+.card-clivale {
+  background: white;
+  padding: 30px 40px; /* Aumentei o padding conforme você pediu */
+  border-radius: 20px;
+  width: 480px;
+  height: 580px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.logo-img {
+  max-width: 140px;
+  height: auto;
+
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+/* --- STEPPER --- */
+.stepper-wrapper-outer {
+  width: 80%;
+  margin-bottom: 5px;;
+}
+
+.stepper-phrase {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--gray-text);
+  margin-bottom: 8px;
+}
+
+.stepper-labels {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--light-border);
+  padding-bottom: 10px;
+}
+
+.stepper-labels span {
+  font-size: 10px;
+  font-weight: 800;
+  color: #cbd5e1;
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+}
+
+.stepper-labels span.active {
+  color: var(--primary) !important;
+}
+
+.stepper-labels span.active::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary);
+}
+
+.stepper-labels span:nth-child(1) { text-align: left; }
+.stepper-labels span:nth-child(2) { text-align: center; }
+.stepper-labels span:nth-child(3) { text-align: right; }
+
+/* --- FORMULÁRIO --- */
+.form-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  flex: 1;
+  justify-content: space-between;
+}
+
+/* --- INPUTS E LABELS --- */
+.inputs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Mais espaço entre os campos */
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inner-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0);
+  padding: 0 5px;
+  border: none;
+  outline: none;
+}
+
+.floating-group {
+  position: relative;
+  width: 100%;
+}
+
+.floating-group input {
+  width: 100%;
+  height: 46px; /* Input um pouco mais alto e elegante */
+  padding: 16px 12px 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.floating-group label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-text);
+  font-size: 12px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.floating-group input:focus ~ label,
+.floating-group input:not(:placeholder-shown) ~ label {
+  top: 8px;
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* BOTÃO PRINCIPAL */
+.btn-main {
+  background: var(--primary);
+  color: white;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 99%;
+  margin-top: -10px;
+}
+
+.btn-main:hover { background: #008f85; transform: translateY(-2px); }
+
+.toggle-page {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--gray-text);
+  cursor: pointer;
+}
+
+.toggle-page strong { color: var(--dark-blue); text-decoration: underline; }
