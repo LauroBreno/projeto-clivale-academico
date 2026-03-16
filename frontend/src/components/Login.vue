@@ -43,7 +43,7 @@ import axios from 'axios';
 const email = ref('');
 const senha = ref('');
 const showPass = ref(false);
-const emit = defineEmits(['irParaCadastro']);
+const emit = defineEmits(['irParaCadastro', 'loginSucesso']);
 
 const fazerLogin = async () => {
   try {
@@ -51,7 +51,14 @@ const fazerLogin = async () => {
       email: email.value,
       senha: senha.value
     });
+
+  if (res.status === 200) {
+    const cargo = res.data.cargo;
+    // 'admin' ou 'Cliente'
+
     alert("Bem-vindo, " + res.data.usuario.nome);
+    emit('loginSucesso', cargo);
+  }
   } catch (err) {
     alert(err.response?.data?.message || "Erro ao fazer login");
   }

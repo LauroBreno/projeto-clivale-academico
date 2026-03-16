@@ -80,9 +80,14 @@ app.post('/api/usuarios/login', async (req, res) => {
       return res.status(400).json({ message: "E-mail ou senha incorretos." });
     }
 
-    // 3. Retorna sucesso e os dados básicos do usuário
+    // 3. Verifica se o usuário é cliente ou admin
+    const ehAdmin = email.toLowerCase().endsWith('@clivale.com.br');
+    const cargo = ehAdmin ? 'Admin' : 'Cliente';
+
+    // 4. Retorna sucesso e os dados básicos do usuário
     res.status(200).json({ 
       message: "Login realizado com sucesso!",
+      cargo: cargo,
       usuario: {
         nome: usuario.nome,
         email: usuario.email
