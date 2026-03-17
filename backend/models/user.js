@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
   senha: { type: String, required: true },
   endereco: {
     cep: { type: String, required: true },
-    ruaBairro: { type: String },               // Unificado conforme seu novo layout
+    ruaBairro: { type: String },               // Unificado
     cidadeEstado: { type: String },            // Unificado
     numeroComplemento: { type: String, required: false }   // Opcional/Unificado
   },

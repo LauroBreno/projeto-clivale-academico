@@ -4,8 +4,6 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// Certifique-se que o arquivo na pasta models se chama 'user.js' ou 'User.js'
-// No prompt anterior vimos que seu sistema diferencia maiúsculas, ajuste se necessário:
 const User = require('./models/user'); 
 
 const app = express();
@@ -13,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Sua conexão do MongoDB Atlas
+// conexão do MongoDB Atlas
 const mongoURI = "mongodb+srv://breno2020_db:Clivale2026@clivaleprojeto.ra4zgxp.mongodb.net/?appName=ClivaleProjeto";
 
 mongoose.connect(mongoURI)
@@ -45,13 +43,13 @@ app.post('/api/usuarios/registrar', async (req, res) => {
       email, 
       nascimento, 
       tel1, 
-      tel2, 
+      tel2, // opcional 
       senha: senhaCriptografada,
       endereco: { 
         cep, 
         ruaBairro, 
         cidadeEstado, 
-        numeroComplemento // Agora opcional no banco também
+        numeroComplemento // opcional
       }
     });
 
@@ -63,7 +61,7 @@ app.post('/api/usuarios/registrar', async (req, res) => {
   }
 });
 
-// ROTA DE LOGIN (IMPLEMENTADA)
+// ROTA DE LOGIN - VERIFICA SE O USUÁRIO EXISTE E SE A SENHA ESTÁ CORRETA
 app.post('/api/usuarios/login', async (req, res) => {
   try {
     const { email, senha } = req.body;

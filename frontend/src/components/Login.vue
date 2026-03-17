@@ -57,7 +57,7 @@ const fazerLogin = async () => {
     // 'admin' ou 'Cliente'
 
     alert("Bem-vindo, " + res.data.usuario.nome);
-    emit('loginSucesso', cargo);
+    emit('loginSucesso', { cargo: cargo, usuario: res.data.usuario });
   }
   } catch (err) {
     alert(err.response?.data?.message || "Erro ao fazer login");
@@ -101,12 +101,5 @@ const fazerLogin = async () => {
 .footer-actions {
   margin-top: 40px;
   padding-bottom: 5px;
-}
-
-.login-form {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
 }
 </style>

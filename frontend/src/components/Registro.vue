@@ -103,7 +103,7 @@ const form = reactive({
   tel1: '', tel2: '', senha: '', confirmarSenha: ''
 })
 
-// --- MÁSCARAS (PONTOS 2 E 6) ---
+// MÁSCARAS
 const mascararCPF = (e) => {
   let v = e.target.value.replace(/\D/g, "");
   v = v.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2");
@@ -128,7 +128,7 @@ const mascararCEP = (e) => {
   form.cep = v;
 }
 
-// --- LÓGICA DE CEP (PONTO 4) ---
+// LÓGICA DE CEP
 watch(() => form.cep, async (val) => {
   const clean = val.replace(/\D/g, '');
   if (clean.length === 8) {
