@@ -1,10 +1,10 @@
-const bcrypt = require('bcrypt'); 
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const bcrypt = require("bcrypt");
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const User = require('./models/user'); 
+const User = require("./models/user");
 
 const app = express();
 
@@ -12,21 +12,31 @@ app.use(cors());
 app.use(express.json());
 
 // conexão do MongoDB Atlas
-const mongoURI = "mongodb+srv://breno2020_db:Clivale2026@clivaleprojeto.ra4zgxp.mongodb.net/?appName=ClivaleProjeto";
+const mongoURI =
+  "mongodb+srv://breno2020_db:Clivale2026@clivaleprojeto.ra4zgxp.mongodb.net/?appName=ClivaleProjeto";
 
-mongoose.connect(mongoURI)
+mongoose
+  .connect(mongoURI)
   .then(() => console.log("Conectado com sucesso ao MongoDB Atlas (Nuvem)!"))
-  .catch(err => {
+  .catch((err) => {
     console.error("Erro ao conectar ao Atlas:", err.message);
   });
 
 // ROTA DE REGISTRO
-app.post('/api/usuarios/registrar', async (req, res) => {
+app.post("/api/usuarios/registrar", async (req, res) => {
   try {
-    const { 
-      nome, cpf, email, nascimento, cep, 
-      ruaBairro, cidadeEstado, numeroComplemento, 
-      tel1, tel2, senha 
+    const {
+      nome,
+      cpf,
+      email,
+      nascimento,
+      cep,
+      ruaBairro,
+      cidadeEstado,
+      numeroComplemento,
+      tel1,
+      tel2,
+      senha,
     } = req.body;
 
     const usuarioExistente = await User.findOne({ $or: [{ cpf }, { email }] });
@@ -38,19 +48,19 @@ app.post('/api/usuarios/registrar', async (req, res) => {
     const senhaCriptografada = await bcrypt.hash(senha, salt);
 
     const novoUsuario = new User({
-      nome, 
-      cpf, 
-      email, 
-      nascimento, 
-      tel1, 
-      tel2, // opcional 
+      nome,
+      cpf,
+      email,
+      nascimento,
+      tel1,
+      tel2, // opcional
       senha: senhaCriptografada,
-      endereco: { 
-        cep, 
-        ruaBairro, 
-        cidadeEstado, 
-        numeroComplemento // opcional
-      }
+      endereco: {
+        cep,
+        ruaBairro,
+        cidadeEstado,
+        numeroComplemento, // opcional
+      },
     });
 
     await novoUsuario.save();
@@ -62,7 +72,7 @@ app.post('/api/usuarios/registrar', async (req, res) => {
 });
 
 // ROTA DE LOGIN - VERIFICA SE O USUÁRIO EXISTE E SE A SENHA ESTÁ CORRETA
-app.post('/api/usuarios/login', async (req, res) => {
+app.post("/api/usuarios/login", async (req, res) => {
   try {
     const { email, senha } = req.body;
 
@@ -79,27 +89,26 @@ app.post('/api/usuarios/login', async (req, res) => {
     }
 
     // 3. Verifica se o usuário é cliente ou admin
-    const ehAdmin = email.toLowerCase().endsWith('@clivale.com.br');
-    const cargo = ehAdmin ? 'Admin' : 'Cliente';
+    const ehAdmin = email.toLowerCase().endsWith("@clivale.com.br");
+    const cargo = ehAdmin ? "Admin" : "Cliente";
 
     // 4. Retorna sucesso e os dados básicos do usuário
-    res.status(200).json({ 
+    res.status(200).json({
       message: "Login realizado com sucesso!",
       cargo: cargo,
       usuario: {
         nome: usuario.nome,
-        email: usuario.email
-      }
+        email: usuario.email,
+      },
     });
-
   } catch (error) {
     console.error("Erro no login:", error);
     res.status(500).json({ message: "Erro interno no servidor." });
   }
 });
 
-app.get('/', (req, res) => {
-  res.send('Servidor Clivale Online!');
+app.get("/", (req, res) => {
+  res.send("Servidor Clivale Online!");
 });
 
 const PORT = process.env.PORT || 5000;

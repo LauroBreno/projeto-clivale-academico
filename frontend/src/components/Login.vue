@@ -1,7 +1,7 @@
 <template>
   <div class="card-clivale login-adjust">
     <div class="logo-wrapper">
-      <img src="../assets/clivale.png" alt="Logo Clivale" class="logo-img">
+      <img src="../assets/clivale.png" alt="Logo Clivale" class="logo-img" />
     </div>
 
     <div class="welcome-section">
@@ -12,15 +12,20 @@
     <form @submit.prevent="fazerLogin" class="form-content login-form">
       <div class="inputs-group">
         <div class="floating-group">
-          <input type="email" v-model="email" required placeholder=" ">
+          <input type="email" v-model="email" required placeholder=" " />
           <label>E-mail</label>
         </div>
 
         <div class="input-wrapper floating-group">
-          <input :type="showPass ? 'text' : 'password'" v-model="senha" required placeholder=" ">
+          <input
+            :type="showPass ? 'text' : 'password'"
+            v-model="senha"
+            required
+            placeholder=" "
+          />
           <label>Senha</label>
           <span class="inner-icon" @click="showPass = !showPass">
-            {{ showPass ? 'Ocultar' : 'Mostrar' }}
+            {{ showPass ? "Ocultar" : "Mostrar" }}
           </span>
         </div>
       </div>
@@ -29,7 +34,7 @@
         <button type="submit" class="btn-main">ENTRAR NA CONTA</button>
       </div>
     </form>
-    
+
     <p @click="$emit('irParaCadastro')" class="toggle-page">
       Não tem conta? <strong>Cadastre-se aqui</strong>
     </p>
@@ -37,28 +42,28 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
+import { ref } from "vue";
+import axios from "axios";
 
-const email = ref('');
-const senha = ref('');
+const email = ref("");
+const senha = ref("");
 const showPass = ref(false);
-const emit = defineEmits(['irParaCadastro', 'loginSucesso']);
+const emit = defineEmits(["irParaCadastro", "loginSucesso"]);
 
 const fazerLogin = async () => {
   try {
-    const res = await axios.post('http://localhost:5000/api/usuarios/login', {
+    const res = await axios.post("http://localhost:5000/api/usuarios/login", {
       email: email.value,
-      senha: senha.value
+      senha: senha.value,
     });
 
-  if (res.status === 200) {
-    const cargo = res.data.cargo;
-    // 'admin' ou 'Cliente'
+    if (res.status === 200) {
+      const cargo = res.data.cargo;
+      // 'admin' ou 'Cliente'
 
-    alert("Bem-vindo, " + res.data.usuario.nome);
-    emit('loginSucesso', { cargo: cargo, usuario: res.data.usuario });
-  }
+      alert("Bem-vindo, " + res.data.usuario.nome);
+      emit("loginSucesso", { cargo: cargo, usuario: res.data.usuario });
+    }
   } catch (err) {
     alert(err.response?.data?.message || "Erro ao fazer login");
   }
@@ -86,7 +91,7 @@ const fazerLogin = async () => {
 }
 
 .welcome-section h2 {
-  color: #002D5E;
+  color: #002d5e;
   font-size: 18px;
   font-weight: 800;
   margin-top: 10px;

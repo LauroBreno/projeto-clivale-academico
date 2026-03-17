@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap");
 
 :root {
-  --primary: #00A99D;
-  --dark-blue: #002D5E;
+  --primary: #00a99d;
+  --dark-blue: #002d5e;
   --gray-text: #94a3b8;
   --light-border: #f1f5f9;
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@
   justify-content: center;
   align-items: center;
   width: 100vw;
-  min-height: 100vh; 
+  min-height: 100vh;
   background: var(--dark-blue);
   overflow: auto;
 }
@@ -29,18 +29,17 @@
   padding: 30px 40px;
   border-radius: 20px;
   width: 480px;
-  height: 580px; 
+  height: 580px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   position: relative;
 }
 
 .logo-img {
   max-width: 140px;
   height: auto;
-
 }
 
 .logo-wrapper {
@@ -53,7 +52,7 @@
 /* STEPPER */
 .stepper-wrapper-outer {
   width: 80%;
-  margin-bottom: 5px;;
+  margin-bottom: 5px;
 }
 
 .stepper-phrase {
@@ -84,7 +83,7 @@
 }
 
 .stepper-labels span.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -12px;
   left: 0;
@@ -93,9 +92,15 @@
   background: var(--primary);
 }
 
-.stepper-labels span:nth-child(1) { text-align: left; }
-.stepper-labels span:nth-child(2) { text-align: center; }
-.stepper-labels span:nth-child(3) { text-align: right; }
+.stepper-labels span:nth-child(1) {
+  text-align: left;
+}
+.stepper-labels span:nth-child(2) {
+  text-align: center;
+}
+.stepper-labels span:nth-child(3) {
+  text-align: right;
+}
 
 /* FORMULÁRIO */
 .form-content {
@@ -186,7 +191,10 @@
   margin-top: -10px;
 }
 
-.btn-main:hover { background: #008f85; transform: translateY(-2px); }
+.btn-main:hover {
+  background: #008f85;
+  transform: translateY(-2px);
+}
 
 .toggle-page {
   text-align: center;
@@ -196,4 +204,7 @@
   cursor: pointer;
 }
 
-.toggle-page strong { color: var(--dark-blue); text-decoration: underline; }
+.toggle-page strong {
+  color: var(--dark-blue);
+  text-decoration: underline;
+}
