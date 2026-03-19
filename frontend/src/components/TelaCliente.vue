@@ -69,7 +69,7 @@
         </div>
       </section>
       <section class="actions-grid">
-        <div class="card-action highlight">
+        <div class="card-action highlight" @click="$emit('irParaAgendamento')">
           <CalendarPlusIcon :size="24" class="icon-1" />
           <div class="card-texts">
             <h4>Marcar Exames e Consultas</h4>
@@ -144,7 +144,7 @@ import {
   ChevronRightIcon,
 } from "lucide-vue-next";
 
-defineEmits(["sair"]);
+const emit = defineEmits(["sair", "irParaAgendamento"]);
 </script>
 
 <style src="../assets/dashboard.css" scoped></style>

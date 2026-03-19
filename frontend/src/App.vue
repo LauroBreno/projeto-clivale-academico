@@ -4,6 +4,7 @@ import Registro from "./components/Registro.vue";
 import Login from "./components/Login.vue";
 import TelaCliente from "./components/TelaCliente.vue";
 import TelaSecretaria from "./components/TelaSecretaria.vue";
+import Agendamento from "./components/Agendamento.vue";
 import "./assets/global.css"; // Importa o CSS global aqui
 const telaAtual = ref("login");
 const usuarioLogado = ref(null);
@@ -32,6 +33,12 @@ const logarUsuario = (dados) => {
     <TelaCliente
       v-else-if="telaAtual === 'cliente'"
       @sair="telaAtual = 'login'"
+      @irParaAgendamento="telaAtual = 'agendar'"
+    />
+    <Agendamento
+      v-else-if="telaAtual === 'agendar'"
+      @sair="telaAtual = 'login'"
+      @voltar="telaAtual = 'cliente'"
     />
     <TelaSecretaria
       v-else-if="telaAtual === 'painel-adm'"
