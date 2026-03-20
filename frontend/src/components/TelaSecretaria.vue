@@ -10,9 +10,9 @@
 
         <div class="weather-display" v-if="clima">
           <div class="weather-pill" :class="{ 'is-rainy': clima.chuva }">
-            <CloudRainIcon v-if="clima.chuva" :size="18" />
-            <SunIcon v-else :size="18" />
-            <span>Salvador, {{ clima.temp }}°C</span>
+            <CloudRainIcon v-if="clima.chuva" :size="16" />
+            <SunIcon v-else :size="16" />
+            <span>Salvador, {{ clima.temp }}°C - {{ clima.descricao }}</span>
             <button
               v-if="clima.chuva"
               @click="avisarPacientes"
@@ -157,7 +157,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import axios from "axios";
 import {
   CloudRainIcon,
   SunIcon,
@@ -169,7 +170,42 @@ import {
 } from "lucide-vue-next";
 
 const showMenu = ref(false);
-const clima = ref({ temp: 28, chuva: true });
+const clima = ref({ temp: "--", chuva: false, descricao: "" });
+const API_KEY = "28f89a82845689fde71baf81ba052fd2";
+
+// Deixa as primeiras letras maiúsculas
+const capitalizarDescricao = (texto) => {
+  if (!texto) return '';
+  return texto
+    .split(' ')
+    .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase())
+    .join(' ');
+};
+
+const buscarClimaSecretaria = async () => {
+  try {
+    const cidade = "Salvador";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=${API_KEY}&lang=pt_br`;
+    const res = await axios.get(url);
+
+    const idClima = res.data.weather[0].id;
+    const tempAtual = Math.round(res.data.main.temp);
+    const descRaw = res.data.weather[0].description;
+
+    // IDs < 600 indicam chuva/garoa/tempestade
+    clima.value = {
+      temp: tempAtual,
+      chuva: idClima < 600,
+      descricao: capitalizarDescricao(descRaw)
+    };
+  } catch (error) {
+    console.error("Erro ao carregar clima na secretaria:", error);
+  }
+};
+
+onMounted(() => {
+  buscarClimaSecretaria();
+});
 
 const pacientes = ref([
   {
@@ -240,9 +276,14 @@ const confirmarPresenca = (p) => {
 const avisarPacientes = () => {
   const selecionados = pacientes.value.filter((p) => p.selecionado);
   if (selecionados.length === 0) {
-    alert("Favor selecionar ao menos um paciente para deseja notifica-lo.");
+    alert("Favor selecionar ao menos um paciente para notifica-lo.");
     return;
   }
+
+  const motivo = clima.value.chuva
+    ? "devido às fortes chuvas e possíveis atrasos"
+    : "sobre o status do atendimento";
+
   alert(
     `Sucesso! Notificação enviada para ${selecionados.length} paciente(s)!`,
   );

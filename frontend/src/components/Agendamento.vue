@@ -252,7 +252,7 @@ const vagasStatus = computed(() => {
 });
 
 const verificarRetorno = () => {
-  // Simulação: Se for Cardiologia, vira retorno
+  // Se for Cardiologia, vira retorno
   isRetorno.value = form.value.servico === "Cardiologia";
 };
 
